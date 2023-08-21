@@ -1,0 +1,38 @@
+{
+  "name": "solaredge-insights-server",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Server to retrieve Solaredge Readings",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marc Lee",
+  "license": "ISC",
+  "dependencies": {
+    "@temporalio/activity": "^1.8.3",
+    "@temporalio/client": "^1.8.3",
+    "@temporalio/common": "^1.8.3",
+    "@temporalio/worker": "^1.8.3",
+    "@temporalio/workflow": "^1.8.3",
+    "express": "^4.18.2",
+    "mongodb": "^5.7.0",
+    "mongoose": "^7.4.3",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^4.0.7",
+    "@types/mongoose": "^5.11.97",
+    "@types/node": "^20.5.1",
+    "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/parser": "^6.4.0",
+    "eslint": "^8.47.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-deprecation": "^1.5.0",
+    "nodemon": "^3.0.1",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.6.2",
+    "typescript": "^5.1.6"
+  }
+}
