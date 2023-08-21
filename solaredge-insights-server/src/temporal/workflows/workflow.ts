@@ -10,5 +10,5 @@ const { retrieveReadings } = wf.proxyActivities<typeof activities>({
 
 /** A workflow that simply calls an activity */
 export async function ProcessSolarReadings(){
-  return await retrieveReadings("5SOSVGG2YPECZHCBIYR9DASERVY57Q60");
+  return await retrieveReadings();
 }

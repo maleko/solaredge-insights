@@ -1,11 +1,17 @@
 import fetch from "node-fetch";
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 // import Reading, { IReading } from "../../models/reading.model";
 
-export async function retrieveReadings(apikey: string): Promise<unknown> {
+export async function retrieveReadings(): Promise<unknown> {
   try {
 
-    const solaredgeBaseUrl = "https://monitoringapi.solaredge.com/site/1233585/powerDetails?";
+    const API_KEY: string = process.env.API_KEY!;
+    const SITE_ID: string = process.env.SITE_ID!;
+
+    const solaredgeBaseUrl = "https://monitoringapi.solaredge.com/site/" + SITE_ID + "/powerDetails?";
     // "startTime=2015-11-21%2011:00:00&endTime=2015-11-21%2011:30:00&api_key=L4QLVQ1LOKCQX2193VSEICXW61NP6B1O"
 
     const endTime: Date = new Date();
@@ -19,14 +25,10 @@ export async function retrieveReadings(apikey: string): Promise<unknown> {
     const startTimeISOString: string = startTime.toISOString();
     const startTimeParam: string = startTimeISOString.split('T')[0] + ' ' + startTimeISOString.split('T')[1].split('.')[0];
 
-    const apiKeyParam = apikey;
-    console.log(apikey)
-    console.log(apiKeyParam);
-
     const params = new URLSearchParams({
       startTime: startTimeParam,
       endTime: endTimeParam,
-      api_key: apiKeyParam
+      api_key: API_KEY
     })
 
     // retrieve JSON from API server
