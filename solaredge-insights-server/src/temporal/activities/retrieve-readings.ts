@@ -10,18 +10,20 @@ export async function retrieveReadings(): Promise<unknown> {
 
     const API_KEY: string = process.env.API_KEY!;
     const SITE_ID: string = process.env.SITE_ID!;
+    const BASE_SOLAREDGE_URL: string = process.env.BASE_SOLAREDGE_URL!;
 
-    const solaredgeBaseUrl = "https://monitoringapi.solaredge.com/site/" + SITE_ID + "/powerDetails?";
+    const solaredgeBaseUrl = BASE_SOLAREDGE_URL + SITE_ID + "/powerDetails?";
     // "startTime=2015-11-21%2011:00:00&endTime=2015-11-21%2011:30:00&api_key=L4QLVQ1LOKCQX2193VSEICXW61NP6B1O"
 
     const endTime: Date = new Date();
+    endTime.setHours(0); endTime.setMinutes(0); endTime.setSeconds(0);
     const endTimeISOString: string = endTime.toISOString();
     const endTimeParam: string = endTimeISOString.split('T')[0] + ' ' + endTimeISOString.split('T')[1].split('.')[0];
 
 
     const startTime: Date = new Date();
     const startMonth = startTime.getMonth();
-    startTime.setDate(startMonth - 7);
+    startTime.setDate(startMonth - 2);
     const startTimeISOString: string = startTime.toISOString();
     const startTimeParam: string = startTimeISOString.split('T')[0] + ' ' + startTimeISOString.split('T')[1].split('.')[0];
 
@@ -44,6 +46,7 @@ export async function retrieveReadings(): Promise<unknown> {
 
     if(!response.ok) {
       // do something Temporal can handle. 
+      console.error("Could not retrieve readings from SolarEdge API");
     }
     
     const result = (await response.json());
