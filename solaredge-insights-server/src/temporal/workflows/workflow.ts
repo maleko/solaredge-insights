@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as wf from '@temporalio/workflow';
-import { proxyActivities } from '@temporalio/workflow';
+
 // Only import the activity types
 import type * as activities from '../activities/retrieve-readings';
 

@@ -5,7 +5,7 @@ import fetch from "node-fetch";
 export async function retrieveReadings(apikey: string): Promise<unknown> {
   try {
 
-    const solaredgeBaseUrl = "https://monitoringapi.solaredge.com/site/1/powerDetails?";
+    const solaredgeBaseUrl = "https://monitoringapi.solaredge.com/site/1233585/powerDetails?";
     // "startTime=2015-11-21%2011:00:00&endTime=2015-11-21%2011:30:00&api_key=L4QLVQ1LOKCQX2193VSEICXW61NP6B1O"
 
     const endTime: Date = new Date();
@@ -15,7 +15,7 @@ export async function retrieveReadings(apikey: string): Promise<unknown> {
 
     const startTime: Date = new Date();
     const startMonth = startTime.getMonth();
-    startTime.setMonth(startMonth - 1);
+    startTime.setDate(startMonth - 7);
     const startTimeISOString: string = startTime.toISOString();
     const startTimeParam: string = startTimeISOString.split('T')[0] + ' ' + startTimeISOString.split('T')[1].split('.')[0];
 

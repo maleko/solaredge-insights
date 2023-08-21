@@ -5,7 +5,7 @@ run().catch((err) => console.log(err));
 
 async function run() {
   const worker = await Worker.create({
-    workflowsPath: require.resolve('./workflows'),
+    workflowsPath: require.resolve('../workflows/workflow.ts'),
     activities,
     taskQueue: 'solaredge-insights',
   });
