@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import * as dotenv from 'dotenv';
+import dbConnect from "../../lib/dbConnect";
 
 dotenv.config();
 
@@ -7,7 +8,7 @@ dotenv.config();
 
 export async function retrieveReadings(): Promise<unknown> {
   try {
-
+    await dbConnect();
     const API_KEY: string = process.env.API_KEY!;
     const SITE_ID: string = process.env.SITE_ID!;
     const BASE_SOLAREDGE_URL: string = process.env.BASE_SOLAREDGE_URL!;
@@ -33,6 +34,8 @@ export async function retrieveReadings(): Promise<unknown> {
       api_key: API_KEY
     })
 
+    console.log(solaredgeBaseUrl + params);
+
     // retrieve JSON from API server
     const response = await fetch(
       (solaredgeBaseUrl + params),
@@ -46,7 +49,7 @@ export async function retrieveReadings(): Promise<unknown> {
 
     if(!response.ok) {
       // do something Temporal can handle. 
-      console.error("Could not retrieve readings from SolarEdge API");
+      console.log("Could not retrieve readings from SolarEdge API");
     }
     
     const result = (await response.json());

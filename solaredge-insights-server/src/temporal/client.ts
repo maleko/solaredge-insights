@@ -17,7 +17,7 @@ async function run() {
 
   const handle = await client.workflow.start(Workflows.ProcessSolarReadings, {
     // type inference works! args: [name: string]
-    // args: ['Temporal'],
+    // args: [dbConnect],
     taskQueue: 'solaredge-insights',
     // in practice, use a meaningful business ID, like customerId or transactionId
     workflowId: 'workflow-solaredge-insights',
