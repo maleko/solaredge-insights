@@ -1,5 +1,5 @@
 import { Worker } from '@temporalio/worker';
-import * as activities from '../activities/retrieve-readings';
+import * as activities from '../activities';
 
 run().catch((err) => console.log(err));
 
