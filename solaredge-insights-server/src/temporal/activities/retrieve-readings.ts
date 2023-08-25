@@ -11,7 +11,8 @@ export async function retrieveReadings(extractionDate: Date): Promise<string> {
     const SITE_ID: string = process.env.SITE_ID!;
     const BASE_SOLAREDGE_URL: string = process.env.BASE_SOLAREDGE_URL!;
 
-    const solaredgeBaseUrl = BASE_SOLAREDGE_URL + SITE_ID + "/powerDetails?";
+    // const solaredgeBaseUrl = BASE_SOLAREDGE_URL + SITE_ID + "/powerDetails?";
+    const solaredgeBaseUrl = BASE_SOLAREDGE_URL + SITE_ID + "/energyDetails?";
     // "startTime=2015-11-21%2011:00:00&endTime=2015-11-21%2011:30:00&api_key=L4QLVQ1LOKCQX2193VSEICXW61NP6B1O"
 
     console.log("retrieveReadings activity started");
@@ -29,7 +30,8 @@ export async function retrieveReadings(extractionDate: Date): Promise<string> {
     const params = new URLSearchParams({
       startTime: startTimeParam,
       endTime: endTimeParam,
-      api_key: API_KEY
+      api_key: API_KEY,
+      timeUnit: "HOUR"
     })
 
     console.log(solaredgeBaseUrl + params);
