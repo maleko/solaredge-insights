@@ -18,9 +18,9 @@ interface SolarReading {
   };
 }
 
-export async function processReadings(solarReadings: string): Promise<string> {
+export async function calculateCostsFromReadings(solarReadings: string): Promise<string> {
   try { 
-    console.log("processReadings activity started");
+    console.log("calculateCostsFromReadings activity started");
     
     const processedReadings = JSON.parse(solarReadings) as SolarReading;
 

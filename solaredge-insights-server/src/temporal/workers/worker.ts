@@ -1,7 +1,10 @@
 import { Worker } from '@temporalio/worker';
 import * as activities from '../activities';
 
-run().catch((err) => console.log(err));
+run().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});
 
 async function run() {
   const worker = await Worker.create({

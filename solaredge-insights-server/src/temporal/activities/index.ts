@@ -1,2 +1,2 @@
 export { retrieveReadings } from './retrieve-readings';
-export { processReadings } from './process-readings';
+export { calculateCostsFromReadings } from './calculate-costs-from-readings';
