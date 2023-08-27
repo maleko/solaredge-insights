@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import * as wf from '@temporalio/workflow';
+import ProcessedReading from '../../interfaces/processed-reading.interface';
+import SolarReading from '../../interfaces/solar-reading.interface';
 
 // Only import the activity types
 import type * as activities from '../activities';
@@ -19,10 +21,10 @@ const { retrieveReadings, calculateCostsFromReadings } = wf.proxyActivities<type
 });
 
 /** A workflow that simply calls an activity */
-export async function processSolarReadings(extractionDate: Date): Promise<string> {
+export async function processSolarReadings(extractionDate: Date): Promise<ProcessedReading> {
   console.log("ProcessSolarReadings workflow started");
   console.log(extractionDate);
   const retrievedSolarReadings = await retrieveReadings(extractionDate);
 
-  return await calculateCostsFromReadings(retrievedSolarReadings);
+  return await calculateCostsFromReadings(retrievedSolarReadings as SolarReading) as ProcessedReading;
 }

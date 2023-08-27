@@ -1,39 +1,19 @@
 import * as dotenv from 'dotenv';
 import { getCost, getFeedInCosts } from '../../lib/retrieve-cost';
+import SolarReading from '../../interfaces/solar-reading.interface';
+import ProcessedReading from '../../interfaces/processed-reading.interface';
 
 dotenv.config();
 
-interface SolarReading {
-  totalCost: number;
-  feedInCost: number;
-  selfConsumptionCost: number;
-  energyDetails: {
-    meters: {
-      type: string;
-      values: {
-        date: string;
-        value: number;
-      }[];
-    }[];
-  };
-}
-
-interface ProcessedReadings {
-  date: Date;
-  feedInCost: number;
-  selfConsumptionCost: number;
-  totalCostSavings: number;
-}
-
-export async function calculateCostsFromReadings(retrievedReadings: string): Promise<string> {
+export async function calculateCostsFromReadings(retrievedReading: SolarReading): Promise<ProcessedReading | unknown> {
   try { 
     console.log("calculateCostsFromReadings activity started");
     
-    const solarReadings = JSON.parse(retrievedReadings) as SolarReading;
+    const solarReadings = retrievedReading;
 
     let feedInCost: number = 0;
     let selfConsumptionCost: number = 0;
-
+    
     const readingDate: Date = new Date(solarReadings.energyDetails.meters[0].values[0].date);
 
     console.log("Reading date:" + readingDate.toISOString());
@@ -48,7 +28,6 @@ export async function calculateCostsFromReadings(retrievedReadings: string): Pro
         feedInCost += feedInSubCosts.reduce((total, cost, index) => total + (cost * (meter.values[index].value) / 1000), 0);
       }
 
-
       if (meter.type == "SelfConsumption") {
         console.log("Self Consumption meter found");
 
@@ -62,18 +41,18 @@ export async function calculateCostsFromReadings(retrievedReadings: string): Pro
     console.log("FeedIn cost: " + feedInCost);
     console.log("Self consumption cost: " + selfConsumptionCost);
 
-    const processedReadings: ProcessedReadings = {
+    const processedReading: ProcessedReading = {
       date: readingDate,
       feedInCost,
       selfConsumptionCost,
       totalCostSavings: feedInCost + selfConsumptionCost
     };
 
-    console.log(processedReadings);
+    console.log(processedReading);
 
-    return JSON.stringify(processedReadings);
+    return processedReading;
   } catch (error) {
     // log in temporal
-    return JSON.stringify(error);
+    return error;
   }
 }

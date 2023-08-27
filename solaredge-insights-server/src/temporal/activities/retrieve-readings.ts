@@ -1,11 +1,10 @@
 import fetch from "node-fetch";
 import * as dotenv from 'dotenv';
+import SolarReading from "../../interfaces/solar-reading.interface"
 
 dotenv.config();
 
-// import Reading, { IReading } from "../../models/reading.model";
-
-export async function retrieveReadings(extractionDate: Date): Promise<string> {
+export async function retrieveReadings(extractionDate: Date): Promise<SolarReading | unknown> {
   try {
     const API_KEY: string = process.env.API_KEY!;
     const SITE_ID: string = process.env.SITE_ID!;
@@ -52,10 +51,10 @@ export async function retrieveReadings(extractionDate: Date): Promise<string> {
       console.log("Could not retrieve readings from SolarEdge API");
     }
     
-    const result = (await response.json());
-    return JSON.stringify(result);
+    const result = (await response.json()) as SolarReading;
+    return result;
   } catch (error) {
     // log in temporal
-    return JSON.stringify(error);
+    return error;
   }
 }
