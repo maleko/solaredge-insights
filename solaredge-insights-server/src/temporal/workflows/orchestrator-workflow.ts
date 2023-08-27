@@ -7,7 +7,7 @@ import TotalCosts from '../../interfaces/total-costs.interface';
 //   startToCloseTimeout: '1 minute',
 // });
 
-export async function orchestratorWorkflow(startDate: Date, endDate: Date): Promise<string> {
+export async function orchestratorWorkflow(startDate: Date, endDate: Date): Promise<TotalCosts> {
 
   // create an array of dates to process
   const dateArray: Array<Date> = getDateArray(startDate, endDate);
@@ -33,7 +33,7 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
     result.totalCostSavings += processedReadings.totalCostSavings;
   }
 
-  return JSON.stringify(result);
+  return result;
 }
 
 function getDateArray(startDate: Date, endDate: Date) {
