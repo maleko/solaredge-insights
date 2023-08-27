@@ -1,6 +1,7 @@
 import * as wf from '@temporalio/workflow';
 import * as activities from '../activities';
 import { listenerCount } from 'process';
+import { processSolarReadings } from '.';
 
 interface TotalCosts {
   startDate: Date;
@@ -17,9 +18,9 @@ interface ProcessedReadings {
   totalCostSavings: number;
 }
 
-const { retrieveReadings, calculateCostsFromReadings } = wf.proxyActivities<typeof activities>({
-  startToCloseTimeout: '1 minute',
-});
+// const { retrieveReadings, calculateCostsFromReadings } = wf.proxyActivities<typeof activities>({
+//   startToCloseTimeout: '1 minute',
+// });
 
 export async function orchestratorWorkflow(startDate: Date, endDate: Date): Promise<string> {
 
@@ -36,10 +37,11 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
   for (const extractionDate of dateArray) {
     console.log("Processing date: " + extractionDate.toISOString());
 
-    const retrievedSolarReadings = await retrieveReadings(extractionDate);
-    const processedReadings = JSON.parse(await calculateCostsFromReadings(retrievedSolarReadings)) as ProcessedReadings;
-
-    console.log("Processed readings: " + processedReadings);
+    const processedReadings = JSON.parse(await wf.executeChild(processSolarReadings, {
+      args: [extractionDate],
+      taskQueue: 'solaredge-insights',
+      workflowId: 'workflow-solaredge-insights-' + extractionDate.toISOString().split('T')[0]
+    }));
 
     result.feedInCost += processedReadings.feedInCost;
     result.selfConsumptionCost += processedReadings.selfConsumptionCost;
