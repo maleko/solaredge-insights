@@ -18,20 +18,27 @@ interface SolarReading {
   };
 }
 
-export async function calculateCostsFromReadings(solarReadings: string): Promise<string> {
+interface ProcessedReadings {
+  date: Date;
+  feedInCost: number;
+  selfConsumptionCost: number;
+  totalCostSavings: number;
+}
+
+export async function calculateCostsFromReadings(retrievedReadings: string): Promise<string> {
   try { 
     console.log("calculateCostsFromReadings activity started");
     
-    const processedReadings = JSON.parse(solarReadings) as SolarReading;
+    const solarReadings = JSON.parse(retrievedReadings) as SolarReading;
 
     let feedInCost: number = 0;
     let selfConsumptionCost: number = 0;
 
-    const readingDate: Date = new Date(processedReadings.energyDetails.meters[0].values[0].date);
+    const readingDate: Date = new Date(solarReadings.energyDetails.meters[0].values[0].date);
 
     console.log("Reading date:" + readingDate.toISOString());
     
-    for (const meter of processedReadings.energyDetails.meters) {
+    for (const meter of solarReadings.energyDetails.meters) {
     // processedReadings.powerDetails.meters.forEach(meter => {
       if (meter.type == "FeedIn") {
         console.log("FeedIn meter found");
@@ -55,9 +62,12 @@ export async function calculateCostsFromReadings(solarReadings: string): Promise
     console.log("FeedIn cost: " + feedInCost);
     console.log("Self consumption cost: " + selfConsumptionCost);
 
-    processedReadings.feedInCost = feedInCost;
-    processedReadings.selfConsumptionCost = selfConsumptionCost;
-    processedReadings.totalCost = feedInCost + selfConsumptionCost;
+    const processedReadings: ProcessedReadings = {
+      date: readingDate,
+      feedInCost,
+      selfConsumptionCost,
+      totalCostSavings: feedInCost + selfConsumptionCost
+    };
 
     console.log(processedReadings);
 

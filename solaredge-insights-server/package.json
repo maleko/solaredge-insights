@@ -6,11 +6,10 @@
   "main": "src/express/app.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev src/express/app.ts",
+    "start": "ts-node src/temporal/workers/worker.ts",
     "build": "tsc --build",
     "build.watch": "tsc --build --watch",
     "lint": "eslint .",
-    "start": "ts-node src/temporal/workers/worker.ts",
     "start.watch": "nodemon src/temporal/workers/worker.ts",
     "workflow": "ts-node src/temporal/client.ts"
   },

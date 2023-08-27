@@ -1,33 +1,41 @@
 import { Connection, Client } from '@temporalio/client';
-import * as Workflows from './workflows/workflow';
+import * as Workflows from './workflows';
 
 async function run() {
   // Connect to the default Server location (localhost:7233)
   const connection = await Connection.connect();
-  // In production, pass options to configure TLS and other settings:
-  // {
-  //   address: 'foo.bar.tmprl.cloud',
-  //   tls: {}
-  // }
+
 
   const client = new Client({
     connection,
     // namespace: 'foo.bar', // connects to 'default' namespace if not specified
   });
 
-  const extractionDate: Date = new Date("2021-10-10");
-
-  const handle = await client.workflow.start(Workflows.ProcessSolarReadings, {
+  const startDate: Date = new Date("2021-10-01");
+  const endDate: Date = new Date("2021-10-31");
+  const handle = await client.workflow.start(Workflows.orchestratorWorkflow, {
     // type inference works! args: [name: string]
-    args: [extractionDate],
+    args: [startDate, endDate],
     taskQueue: 'solaredge-insights',
     // in practice, use a meaningful business ID, like customerId or transactionId
-    workflowId: 'workflow-solaredge-insights-' + extractionDate.toISOString().split('T')[0]
+    workflowId: 'workflow-orchestrator-' + startDate.toISOString().split('T')[0]
   });
   console.log(`Started workflow ${handle.workflowId}`);
+  const result = await handle.result();
+
+  console.log("Result: " + result);
+
+  // const extractionDate: Date = new Date("2021-10-10");
+  // const handle = await client.workflow.start(Workflows.processSolarReadings, {
+  //   // type inference works! args: [name: string]
+  //   args: [extractionDate],
+  //   taskQueue: 'solaredge-insights',
+  //   // in practice, use a meaningful business ID, like customerId or transactionId
+  //   workflowId: 'workflow-solaredge-insights-' + extractionDate.toISOString().split('T')[0]
+  // });
+  // console.log(`Started workflow ${handle.workflowId}`);
 
   // optional: wait for client result
-  console.log(await handle.result()); // Hello, Temporal!
 }
 
 run().catch((err) => {
