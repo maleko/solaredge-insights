@@ -46,6 +46,11 @@ Result: {"startDate":"2019-08-19T00:00:00.000Z","endDate":"2019-12-31T00:00:00.0
 
 ```
 
+# Caveats
+- For now, you need to navigate to http://localhost:8233/namespaces/default/workflows to view the results
+- I need to add tests..... I know there's something weird about the date array.... 
+- Solaredge states you got a maximum of 300 API calls daily
+
 # Things to improve
 
 - Use a workflow to import the electricity rates and use queries to retrieve it
