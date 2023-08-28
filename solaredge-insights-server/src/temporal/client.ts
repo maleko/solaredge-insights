@@ -11,8 +11,8 @@ async function run() {
     // namespace: 'foo.bar', // connects to 'default' namespace if not specified
   });
 
-  const startDate: Date = new Date("2021-10-01");
-  const endDate: Date = new Date("2021-10-31");
+  const startDate: Date = new Date("2019-08-19");
+  const endDate: Date = new Date("2019-12-31");
   const handle = await client.workflow.start(Workflows.orchestratorWorkflow, {
     // type inference works! args: [name: string]
     args: [startDate, endDate],
@@ -23,7 +23,7 @@ async function run() {
   console.log(`Started workflow ${handle.workflowId}`);
   const result = await handle.result();
 
-  console.log("Result: " + result);
+  console.log("Result: " + JSON.stringify(result));
 
   // optional: wait for client result
 }

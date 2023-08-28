@@ -26,5 +26,7 @@ export async function processSolarReadings(extractionDate: Date): Promise<Proces
   console.log(extractionDate);
   const retrievedSolarReadings = await retrieveReadings(extractionDate);
 
+  //
+
   return await calculateCostsFromReadings(retrievedSolarReadings as SolarReading) as ProcessedReading;
 }

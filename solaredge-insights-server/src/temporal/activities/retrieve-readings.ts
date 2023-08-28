@@ -49,6 +49,7 @@ export async function retrieveReadings(extractionDate: Date): Promise<SolarReadi
     if(!response.ok) {
       // do something Temporal can handle. 
       console.log("Could not retrieve readings from SolarEdge API");
+      throw new Error("Could not retrieve readings from SolarEdge API");
     }
     
     const result = (await response.json()) as SolarReading;

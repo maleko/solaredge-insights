@@ -29,11 +29,11 @@ ts-node src/lib/insert-rates.ts
 
 # Execution
 
-1. `temporal server start-dev` to start [Temporal Server](https://github.com/temporalio/cli/#installation).
-   1. Use `temporal server start-dev -db-filename filename` if you want to persist it. 
-2. `npm install` to install dependencies.
-3. `npm run start.watch` to start the Worker.
-4. In another shell, `npm run workflow` to run the Workflow Client.
+1. `temporal server start-dev` to start [Temporal Server](https://github.com/temporalio/cli/#installation)
+   1. Use `temporal server start-dev -db-filename filename` if you want to persist it
+2. `npm install` to install dependencies
+3. `npm run start.watch` to start the Worker
+4. In another shell, `npm run workflow` to run the Workflow Client
 
 The Workflow should return something like this:
 
@@ -47,10 +47,16 @@ Result: {"startDate":"2019-08-19T00:00:00.000Z","endDate":"2019-12-31T00:00:00.0
 
 ```
 
+# Querying Run State
+
+In another shell, `npm run query` to run the Workflow Client.
+
+
 # Caveats
 - For now, you need to navigate to http://localhost:8233/namespaces/default/workflows to view the results
 - I need to add tests..... I know there's something weird about the date array.... 
 - Solaredge states you got a maximum of 300 API calls daily
+- Need to retrieve a list of running workflows in Temporal Server to determine which one we want to run the query on
 
 # Things to improve
 

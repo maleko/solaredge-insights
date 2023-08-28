@@ -7,6 +7,8 @@ import TotalCosts from '../../interfaces/total-costs.interface';
 //   startToCloseTimeout: '1 minute',
 // });
 
+export const getCurrentResultsQuery = wf.defineQuery<TotalCosts>('getCurrentResults');
+
 export async function orchestratorWorkflow(startDate: Date, endDate: Date): Promise<TotalCosts> {
 
   // create an array of dates to process
@@ -31,8 +33,9 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
     result.feedInCost += processedReadings.feedInCost;
     result.selfConsumptionCost += processedReadings.selfConsumptionCost;
     result.totalCostSavings += processedReadings.totalCostSavings;
+ 
+    wf.setHandler(getCurrentResultsQuery, () => result);
   }
-
   return result;
 }
 

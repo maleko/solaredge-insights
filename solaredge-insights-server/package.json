@@ -11,7 +11,8 @@
     "build.watch": "tsc --build --watch",
     "lint": "eslint .",
     "start.watch": "nodemon src/temporal/workers/worker.ts",
-    "workflow": "ts-node src/temporal/client.ts"
+    "workflow": "ts-node src/temporal/client.ts",
+    "query": "ts-node src/temporal/workflows/query-workflow.ts"
   },
   "author": "Marc Lee",
   "license": "ISC",
