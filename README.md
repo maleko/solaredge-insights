@@ -30,9 +30,10 @@ ts-node src/lib/insert-rates.ts
 # Execution
 
 1. `temporal server start-dev` to start [Temporal Server](https://github.com/temporalio/cli/#installation).
-1. `npm install` to install dependencies.
-1. `npm run start.watch` to start the Worker.
-1. In another shell, `npm run workflow` to run the Workflow Client.
+   1. Use `temporal server start-dev -db-filename filename` if you want to persist it. 
+2. `npm install` to install dependencies.
+3. `npm run start.watch` to start the Worker.
+4. In another shell, `npm run workflow` to run the Workflow Client.
 
 The Workflow should return something like this:
 
