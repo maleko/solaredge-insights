@@ -8,7 +8,7 @@ async function run() {
     console.log(await ElectricRate.create({
       retailer: "Sumo Energy",
       startDate: "2022-07-20",
-      endDate: "2023-07-21",
+      endDate: "2023-07-31",
       peakCostInDollars: 0.3080,
       shoulderCostInDollars: 0.1650,
       offPeakCostInDollars: 0.1650,

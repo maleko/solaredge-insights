@@ -18,25 +18,26 @@ export async function getCost(date: Date): Promise<number> {
   const shoulderCostinDollarsPerkWh: number = rate ? rate.shoulderCostInDollars : 0;
 
   const hour = date.getHours();
-  const minute = date.getMinutes();
+  // const minute = date.getMinutes();
 
   if (peakTime.includes(hour)) {
-    if ((minute == 0) && (hour == 15)) { 
-      return shoulderCostinDollarsPerkWh;
-    } 
+    // Commenting this out as we aren't retrieving quarterly readings
+    // if ((minute == 0) && (hour == 15)) { 
+    //   return shoulderCostinDollarsPerkWh;
+    // } 
     return peakCostinDollarsPerkWh;
   } else if (offPeakTime.includes(hour)) {
-    if ((minute == 0) && (hour == 23)) { 
-      return shoulderCostinDollarsPerkWh;
-    }
+    // if ((minute == 0) && (hour == 23)) { 
+    //   return shoulderCostinDollarsPerkWh;
+    // }
     return offPeakCostinDollarsPerkWh;
   } else if (shoulderTime.includes(hour)) {
-    if ((minute == 0) && (hour == 7)) { 
-      return offPeakCostinDollarsPerkWh;
-    }
-    if ((minute == 0) && (hour == 21)) {
-      return peakCostinDollarsPerkWh;
-    }
+    // if ((minute == 0) && (hour == 7)) { 
+    //   return offPeakCostinDollarsPerkWh;
+    // }
+    // if ((minute == 0) && (hour == 21)) {
+    //   return peakCostinDollarsPerkWh;
+    // }
     return shoulderCostinDollarsPerkWh;
   }
 
