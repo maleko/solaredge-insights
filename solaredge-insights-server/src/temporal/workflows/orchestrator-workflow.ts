@@ -1,4 +1,5 @@
 import * as wf from '@temporalio/workflow';
+import { getDateArray } from '../../lib/utilities';
 import { processSolarReadings } from '.';
 import ProcessedReading from '../../interfaces/processed-reading.interface';
 import TotalCosts from '../../interfaces/total-costs.interface';
@@ -37,15 +38,4 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
     wf.setHandler(getCurrentResultsQuery, () => result);
   }
   return result;
-}
-
-function getDateArray(startDate: Date, endDate: Date) {
-  const arr = [];
-
-  console.log(startDate);
-
-  for (let dt: Date = new Date(startDate); dt <= new Date(endDate); dt.setDate(dt.getDate() + 1)) {
-    arr.push(new Date(dt));
-  }
-  return arr;
 }
