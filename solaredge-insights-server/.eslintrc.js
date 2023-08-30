@@ -45,5 +45,5 @@ module.exports = {
       },
     },
   ],
-  "ignorePatterns": [".eslintrc.js"],
+  "ignorePatterns": [".eslintrc.js", "**/*.test.ts"],
 };
