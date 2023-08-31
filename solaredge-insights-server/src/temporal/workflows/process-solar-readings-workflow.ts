@@ -21,12 +21,16 @@ const { retrieveReadings, calculateCostsFromReadings } = wf.proxyActivities<type
 });
 
 /** A workflow that simply calls an activity */
-export async function processSolarReadings(extractionDate: Date): Promise<ProcessedReading> {
-  console.log("ProcessSolarReadings workflow started");
-  console.log(extractionDate);
-  const retrievedSolarReadings = await retrieveReadings(extractionDate);
-
-  //
-
-  return await calculateCostsFromReadings(retrievedSolarReadings as SolarReading) as ProcessedReading;
+export async function processSolarReadings(extractionDate: Date): Promise<ProcessedReading | unknown> {
+  try {
+    console.log("ProcessSolarReadings workflow started");
+    console.log(extractionDate);
+    const retrievedSolarReadings = await retrieveReadings(extractionDate);
+    
+    return await calculateCostsFromReadings(retrievedSolarReadings as SolarReading) as ProcessedReading;
+    
+  } catch (error) {
+    console.log("Error in processSolarReadings workflow: " + error);
+    return error;
+  }
 }
