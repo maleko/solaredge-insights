@@ -21,7 +21,7 @@ const { retrieveReadings, calculateCostsFromReadings } = wf.proxyActivities<type
 });
 
 /** A workflow that simply calls an activity */
-export async function processSolarReadings(extractionDate: Date): Promise<ProcessedReading | unknown> {
+export async function processSolarReadings(extractionDate: Date): Promise<ProcessedReading> {
   try {
     console.log("ProcessSolarReadings workflow started");
     console.log(extractionDate);
@@ -31,6 +31,6 @@ export async function processSolarReadings(extractionDate: Date): Promise<Proces
     
   } catch (error) {
     console.log("Error in processSolarReadings workflow: " + error);
-    return error;
+    throw error;
   }
 }

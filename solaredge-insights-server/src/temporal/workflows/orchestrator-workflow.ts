@@ -14,6 +14,11 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
 
   // create an array of dates to process
   const dateArray: Array<Date> = getDateArray(startDate, endDate);
+  // Get an array of months to store the monthly costs
+  // Get an array of years to store the yearly costs
+  // Get an array of days to store the daily costs
+
+  // This kind of presets the costs and it's hard to maintain. Best to recalculate each time.
   const result: TotalCosts = {
     startDate,
     endDate,
@@ -21,6 +26,8 @@ export async function orchestratorWorkflow(startDate: Date, endDate: Date): Prom
     selfConsumptionCost: 0,
     totalCostSavings: 0
   };
+  
+
 
   for (const extractionDate of dateArray) {
     console.log("Processing date: " + extractionDate.toISOString());

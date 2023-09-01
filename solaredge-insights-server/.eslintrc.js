@@ -45,5 +45,5 @@ module.exports = {
       },
     },
   ],
-  "ignorePatterns": [".eslintrc.js", "**/*.test.ts"],
+  "ignorePatterns": [".eslintrc.js", "**/*.test.ts", "babel.config.js", "global-setup.js"],
 };

@@ -4,7 +4,7 @@ import SolarReading from "../../interfaces/solar-reading.interface"
 
 dotenv.config();
 
-export async function retrieveReadings(extractionDate: Date): Promise<SolarReading | unknown> {
+export async function retrieveReadings(extractionDate: Date): Promise<SolarReading> {
   try {
     const API_KEY: string = process.env.API_KEY!;
     const SITE_ID: string = process.env.SITE_ID!;
@@ -48,14 +48,13 @@ export async function retrieveReadings(extractionDate: Date): Promise<SolarReadi
 
     if(!response.ok) {
       // do something Temporal can handle. 
-      console.log("Could not retrieve readings from SolarEdge API");
       throw new Error("Could not retrieve readings from SolarEdge API");
     }
     
     const result = (await response.json()) as SolarReading;
     return result;
-  } catch (error) {
-    // log in temporal
-    return error;
+  } catch (error) { 
+    console.log("Could not retrieve readings from SolarEdge API");
+    throw error;
   }
-}
+} 
