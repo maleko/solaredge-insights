@@ -1,4 +1,4 @@
-import { getDateArray, getMonthlyArray } from "./utilities";
+import { getDateArray, getMonthlyArray, getYearlyArray } from "./utilities";
 import { describe, expect, it } from "@jest/globals";
 
 describe("gets a date array", () => {
@@ -12,7 +12,6 @@ describe("gets a date array", () => {
 });
 
 describe("monthly array", () => {
-
   describe("has the same month", () => {
     const startDate = new Date("2021-10-10");
     const endDate = new Date("2021-10-12");
@@ -48,5 +47,42 @@ describe("monthly array", () => {
       expect (getMonthlyArray(startDate, endDate)).toEqual(result)
     });
   });
-
 });
+
+describe("yearly array", () => {
+  describe("has the same year", () => {
+    const startDate = new Date("2021-10-10");
+    const endDate = new Date("2021-10-12");
+
+    const resultDate = new Date("2021-01-01");
+    const result = [resultDate];
+
+    it("returns an array of one year", () => {
+      expect (getYearlyArray(startDate, endDate)).toEqual(result)
+    });
+  });
+
+  describe("consecutive years", () => {
+    const startDate = new Date("2021-10-10");
+    const endDate = new Date("2022-11-12");
+
+    const firstResultDate = new Date("2021-01-01");
+    const secondResultDate = new Date("2022-01-01");
+    const result = [firstResultDate, secondResultDate];
+
+    it("returns an array of two consecutive years", () => {
+      expect (getYearlyArray(startDate, endDate)).toEqual(result)
+    });
+  });
+
+  describe("range of years", () => {
+    const startDate = new Date("2021-10-10");
+    const endDate = new Date("2024-01-12");
+
+    const result = [new Date("2021-01-01"), new Date("2022-01-01"), new Date("2023-01-01"), new Date("2024-01-01")];
+
+    it("returns an array of four consecutive years", () => {
+      expect (getYearlyArray(startDate, endDate)).toEqual(result)
+    });
+  });
+})

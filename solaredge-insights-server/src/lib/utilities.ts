@@ -17,7 +17,15 @@ export function getMonthlyArray(startDate: Date, endDate: Date) {
     return currentMonth;
   });
 
-  console.log(monthsArray);
-
   return monthsArray;  
+}
+
+export function getYearlyArray(startDate: Date, endDate: Date) {
+  const diffInYears = endDate.getFullYear() - startDate.getFullYear() + 1;
+
+  const yearsArray = Array(diffInYears).fill(null).map((_, index) => {
+    const currentYear = new Date(startDate.getFullYear() + index, 0, 1);
+    return currentYear;
+  });
+  return yearsArray;
 }
